@@ -38,15 +38,15 @@ const urlStruct = {
   GET: {
     '/': htmlHandler.getIndex,
     '/style.css': htmlHandler.getCSS,
-    // '/getUsers': jsonHandler.getUsers,
+    '/getRides': jsonHandler.getRides,
     notFound: jsonHandler.notFound,
   },
   HEAD: {
-    // '/getUsers': jsonHandler.getUsersMeta,
+    '/getRides': jsonHandler.getRidesMeta,
     notFound: jsonHandler.notFoundMeta,
   },
   POST: {
-    // '/addUser': (req, res) => parseBody(req, res, jsonHandler.addUser),
+    '/addRide': (req, res) => parseBody(req, res, jsonHandler.addRide),
   },
 };
 

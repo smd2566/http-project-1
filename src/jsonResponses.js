@@ -47,10 +47,10 @@ const getRidesMeta = (request, response) => respondJSONMeta(request, response, 2
 // function just to update our object
 const addRide = (request, response, body) => {
   const responseJSON = {
-    message: 'Ride name and placement are both required.',
+    message: 'Ride name, location and ride type are all required.',
   };
 
-  if (!body.name || !body.placement) {
+  if (!body.name || !body.location || !body.rideType) {
     responseJSON.id = 'missingParams';
     return respondJSON(request, response, 400, responseJSON);
   }
@@ -62,7 +62,8 @@ const addRide = (request, response, body) => {
   }
 
   rides[body.name].name = body.name;
-  rides[body.name].placement = body.placement;
+  rides[body.name].location = body.location;
+  rides[body.name].rideType = body.rideType;
 
   if (responseCode === 201) {
     responseJSON.message = 'Created Successfully';

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Our simple HTTP server</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+
+    <script>
+
+        const handleResponse = async (response, methodType) => {
+            const content = document.querySelector('#content');
+            switch (response.status) {
+                case 200:
+                    content.innerHTML = `<b>Success</b>`;
+                    break;
+                case 201:
+                    content.innerHTML = '<b>Created</b>';
+                    break;
+                case 204:
+                    content.innerHTML = '<b>Updated (No Content)</b>';
+                    return;
+                case 400:
+                    content.innerHTML = `<b>Bad Request</b>`;
+                    break;
+                case 404:
+                    content.innerHTML = `<b>Page Not Found</b>`;
+                    break;
+                default:
+                    content.innerHTML = `Error code not implemented by client.`;
+                    break;
+            }
+
+
+            if (methodType) {
+                const obj = await response.json();
+                const objStringified = JSON.stringify(obj)
+                if (obj.message) {
+                    //console.log(obj.message);
+                    content.innerHTML += `<p>${obj.message}</p>`;
+                }
+                content.innerHTML += `<p>${objStringified}</p>`;
+
+            }
+
+
+
+
+        };
+
+        const sendGet = async (rideForm) => {
+            const responseType = rideForm.querySelector("#methodSelect").value;
+            const notRealSwitch = rideForm.querySelector("#urlField").value
+
+            //const getAction = userForm.getAttribute('action');
+            const getMethod = rideForm.getAttribute('method');
+            //I think this is synonymous with sendPost. Create the response object, update the accept header,
+
+            const response = await fetch(notRealSwitch, {
+                method: getMethod,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept': 'application/json',
+                },
+            });
+
+            if (responseType === "get") {
+                handleResponse(response, true);
+            } else {
+                handleResponse(response, false);
+            }
+
+        }
+
+
+        const sendPost = async (nameForm) => {
+            const nameAction = nameForm.getAttribute('action');
+            const nameMethod = nameForm.getAttribute('method');
+
+            const nameField = nameForm.querySelector('#nameField');
+            const locationSelect = nameForm.querySelector('#locationSelect');
+
+            const formData = `name=${nameField.value}&location=${locationSelect.value}
+            &rideType=${rideTypeSelect.value}`;
+
+            const response = await fetch(nameAction, {
+                method: nameMethod,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept': 'application/json',
+                },
+                body: formData,
+            });
+
+            handleResponse(response, true);
+        };
+
+        const init = () => {
+            const nameForm = document.querySelector('#nameForm');
+            const rideForm = document.querySelector('#rideForm');
+
+            const addRide = (e) => {
+                e.preventDefault();
+                sendPost(nameForm);
+                return false;
+            }
+
+            const getRide = (e) => {
+                e.preventDefault();
+                sendGet(rideForm);
+                return false;
+            }
+
+            nameForm.addEventListener('submit', addRide);
+            rideForm.addEventListener('submit', getRide);
+        };
+
+        window.onload = init;
+
+
+
+    </script>
+</head>
+
+<body>
+    <section id="top">
+        <h3>POST Status Code Tests</h3>
+        <form id="nameForm" action="/addRide" method="post">
+            <label for="name">Name: </label>
+            <input id="nameField" type="text" name="name" />
+            <label for="location">Location: </label>
+            <select id='locationSelect'>
+                <option value='1'>Plot 1</option>
+                <option value='2'>Plot 2</option>
+                <option value='3'>Plot 3</option>
+                <option value='4'>Plot 4</option>
+                <option value='5'>Plot 5</option>
+                <option value='6'>Plot 6</option>
+                <option value='7'>Plot 7</option>
+                <option value='8'>Plot 8</option>
+                <option value='9'>Plot 9</option>
+            </select>
+            <label for="rideType">Ride Type: </label>
+            <select id='rideTypeSelect'>
+                <option value='rollercoaster'>Roller coaster</option>
+                <option value='carousel'>Carousel</option>
+                <option value='ferriswheel'>Ferris Wheel</option>
+                <option value='bumpercars'>Bumper Cars</option>
+                <option value='slide'>Slide</option>
+            </select>
+
+
+            <input type="submit" value="Add Ride" />
+        </form>
+        <form id="rideForm" action="/getRides" method="get">
+            <select id='urlField'>
+                <option value='/getRides'>/getRides</option>
+                <option value='/notReal'>/notReal</option>
+            </select>
+            <select id="methodSelect">
+                <option value="get">GET</option>
+                <option value="head">HEAD</option>
+            </select>
+            <input type="submit" value="Get Ride" />
+        </form>
+    </section>
+    <section id="content">
+    </section>
+    <section id="plots">
+        <section id="plot1">
+
+            <img src = "media/emptyPlot.png" alt = "Empty Plot">
+
+            <button type="button">Select Plot</button>
+            <input type="submit" value="View Plot" />
+
+        </section>
+
+        <section id="plot2">
+
+            <img src = "media/emptyPlot.png" alt = "Empty Plot">
+
+            <button type="button">Select Plot</button>
+            <input type="submit" value="View Plot" />
+
+            
+
+        </section>
+
+        <section id="plot3">
+
+            <img src = "media/emptyPlot.png" alt = "Empty Plot">
+
+            <button type="button">Select Plot</button>
+            <input type="submit" value="View Plot" />
+
+        </section>
+
+        <section id="plot4">
+
+            <img src = "media/emptyPlot.png" alt = "Empty Plot">
+
+            <button type="button">Select Plot</button>
+            <input type="submit" value="View Plot" />
+
+        </section>
+
+        <section id="plot5">
+
+            <img src = "media/emptyPlot.png" alt = "Empty Plot">
+
+            <button type="button">Select Plot</button>
+            <input type="submit" value="View Plot" />
+
+        </section>
+
+        <section id="plot6">
+
+            <img src = "media/emptyPlot.png" alt = "Empty Plot">
+
+            <button type="button">Select Plot</button>
+            <input type="submit" value="View Plot" />
+
+        </section>
+
+        <section id="plot7">
+
+            <img src = "media/emptyPlot.png" alt = "Empty Plot">
+
+            <button type="button">Select Plot</button>
+            <input type="submit" value="View Plot" />
+
+        </section>
+
+        <section id="plot8">
+
+            <img src = "media/emptyPlot.png" alt = "Empty Plot">
+
+            <button type="button">Select Plot</button>
+            <input type="submit" value="View Plot" />
+
+        </section>
+
+        <section id="plot9">
+
+            <img src = "media/emptyPlot.png" alt = "Empty Plot">
+
+            <button type="button">Select Plot</button>
+            <input type="submit" value="View Plot" />
+
+        </section>
+
+
+
+
+
+
+
+
+    </section>
+</body>
+
+</html>
