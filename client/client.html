@@ -33,19 +33,56 @@
 
             if (methodType) {
                 const obj = await response.json();
-                const objStringified = JSON.stringify(obj)
+                const objStringified = JSON.stringify(obj);
+                const jsonInformation = JSON.parse(objStringified);
+                //console.log(jsonInformation.rides);
                 if (obj.message) {
                     //console.log(obj.message);
                     content.innerHTML += `<p>${obj.message}</p>`;
                 }
                 content.innerHTML += `<p>${objStringified}</p>`;
 
+
+                //This code triggers when GET is pressed, so i think this is where I'd update the plot images
+                //and labels
+
+                //setPlots();
+
+                
             }
 
 
 
 
+
+
         };
+
+        const setPlots = async (jsonInformation) => {
+
+            //I am currently not iterating properly through these
+
+
+            const plotSection = document.querySelector("#plots");
+            const plots = plotSection.querySelectorAll("section")
+
+            for (element in jsonInformation) {
+                console.log(element);
+
+                for (plot in plots) {
+
+                    if (element.location === plot.id) {
+
+                        plot.querySelector("h3").innerHTML = `${element.location} : ${element.name}`;
+                    }
+                }
+
+
+            }
+
+
+
+        }
 
         const sendGet = async (rideForm) => {
             const responseType = rideForm.querySelector("#methodSelect").value;
@@ -79,8 +116,7 @@
             const nameField = nameForm.querySelector('#nameField');
             const locationSelect = nameForm.querySelector('#locationSelect');
 
-            const formData = `name=${nameField.value}&location=${locationSelect.value}
-            &rideType=${rideTypeSelect.value}`;
+            const formData = `name=${nameField.value}&location=${locationSelect.value}&rideType=${rideTypeSelect.value}`;
 
             const response = await fetch(nameAction, {
                 method: nameMethod,
@@ -129,15 +165,15 @@
             <input id="nameField" type="text" name="name" />
             <label for="location">Location: </label>
             <select id='locationSelect'>
-                <option value='1'>Plot 1</option>
-                <option value='2'>Plot 2</option>
-                <option value='3'>Plot 3</option>
-                <option value='4'>Plot 4</option>
-                <option value='5'>Plot 5</option>
-                <option value='6'>Plot 6</option>
-                <option value='7'>Plot 7</option>
-                <option value='8'>Plot 8</option>
-                <option value='9'>Plot 9</option>
+                <option value='plot0'>Plot 0</option>
+                <option value='plot1'>Plot 1</option>
+                <option value='plot2'>Plot 2</option>
+                <option value='plot3'>Plot 3</option>
+                <option value='plot4'>Plot 4</option>
+                <option value='plot5'>Plot 5</option>
+                <option value='plot6'>Plot 6</option>
+                <option value='plot7'>Plot 7</option>
+                <option value='plot8'>Plot 8</option>
             </select>
             <label for="rideType">Ride Type: </label>
             <select id='rideTypeSelect'>
@@ -166,29 +202,46 @@
     <section id="content">
     </section>
     <section id="plots">
-        <section id="plot1">
+        <section id="plot0">
 
-            <img src = "media/emptyPlot.png" alt = "Empty Plot">
+            <h3>Plot 0: Empty</h3>
+
+            <img src="media/emptyPlot.png" alt="Empty Plot">
 
             <button type="button">Select Plot</button>
             <input type="submit" value="View Plot" />
+
+        </section>
+
+        <section id="plot1">
+
+            <h3>Plot 1: Empty</h3>
+
+            <img src="media/emptyPlot.png" alt="Empty Plot">
+
+            <button type="button">Select Plot</button>
+            <input type="submit" value="View Plot" />
+
+
 
         </section>
 
         <section id="plot2">
 
-            <img src = "media/emptyPlot.png" alt = "Empty Plot">
+            <h3>Plot 2: Empty</h3>
+
+            <img src="media/emptyPlot.png" alt="Empty Plot">
 
             <button type="button">Select Plot</button>
             <input type="submit" value="View Plot" />
-
-            
 
         </section>
 
         <section id="plot3">
 
-            <img src = "media/emptyPlot.png" alt = "Empty Plot">
+            <h3>Plot 3: Empty</h3>
+
+            <img src="media/emptyPlot.png" alt="Empty Plot">
 
             <button type="button">Select Plot</button>
             <input type="submit" value="View Plot" />
@@ -197,7 +250,9 @@
 
         <section id="plot4">
 
-            <img src = "media/emptyPlot.png" alt = "Empty Plot">
+            <h3>Plot 4: Empty</h3>
+
+            <img src="media/emptyPlot.png" alt="Empty Plot">
 
             <button type="button">Select Plot</button>
             <input type="submit" value="View Plot" />
@@ -206,7 +261,9 @@
 
         <section id="plot5">
 
-            <img src = "media/emptyPlot.png" alt = "Empty Plot">
+            <h3>Plot 5: Empty</h3>
+
+            <img src="media/emptyPlot.png" alt="Empty Plot">
 
             <button type="button">Select Plot</button>
             <input type="submit" value="View Plot" />
@@ -215,7 +272,9 @@
 
         <section id="plot6">
 
-            <img src = "media/emptyPlot.png" alt = "Empty Plot">
+            <h3>Plot 6: Empty</h3>
+
+            <img src="media/emptyPlot.png" alt="Empty Plot">
 
             <button type="button">Select Plot</button>
             <input type="submit" value="View Plot" />
@@ -224,7 +283,9 @@
 
         <section id="plot7">
 
-            <img src = "media/emptyPlot.png" alt = "Empty Plot">
+            <h3>Plot 7: Empty</h3>
+
+            <img src="media/emptyPlot.png" alt="Empty Plot">
 
             <button type="button">Select Plot</button>
             <input type="submit" value="View Plot" />
@@ -233,16 +294,9 @@
 
         <section id="plot8">
 
-            <img src = "media/emptyPlot.png" alt = "Empty Plot">
+            <h3>Plot 8: Empty</h3>
 
-            <button type="button">Select Plot</button>
-            <input type="submit" value="View Plot" />
-
-        </section>
-
-        <section id="plot9">
-
-            <img src = "media/emptyPlot.png" alt = "Empty Plot">
+            <img src="media/emptyPlot.png" alt="Empty Plot">
 
             <button type="button">Select Plot</button>
             <input type="submit" value="View Plot" />
