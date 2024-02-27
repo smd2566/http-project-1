@@ -46,14 +46,13 @@
                 //This code triggers when GET is pressed, so i think this is where I'd update the plot images
                 //and labels
 
-                //setPlots();
 
-                
+                if (obj.rides) {
+                    setPlots(obj);
+                }
+
+
             }
-
-
-
-
 
 
         };
@@ -61,25 +60,36 @@
         const setPlots = async (jsonInformation) => {
 
             //I am currently not iterating properly through these
+            console.log(jsonInformation);
 
 
-            const plotSection = document.querySelector("#plots");
-            const plots = plotSection.querySelectorAll("section")
+            Object.values(jsonInformation.rides).forEach(ride => {
+                let element = document.getElementById(ride.location);
+                let rideArray = ride.location.split('-');
 
-            for (element in jsonInformation) {
-                console.log(element);
-
-                for (plot in plots) {
-
-                    if (element.location === plot.id) {
-
-                        plot.querySelector("h3").innerHTML = `${element.location} : ${element.name}`;
-                    }
+                switch (ride.rideType) {
+                    case "rollerCoaster":
+                        element.querySelector("img").src = "/getRollerCoaster";
+                        break;
+                    case "carousel":
+                        element.querySelector("img").src = "/getCarousel";
+                        break;
+                    case "ferrisWheel":
+                        element.querySelector("img").src = "/getFerrisWheel";
+                        return;
+                    case "bumperCars":
+                        element.querySelector("img").src = "/getBumperCars";
+                        break;
+                    case "slide":
+                        element.querySelector("img").src = "/getSlide";
+                        break;
+                    default:
+                        break;
                 }
 
+                element.querySelector("h3").innerHTML = `Plot ${rideArray[1]} : ${ride.name}`;
 
-            }
-
+            });
 
 
         }
@@ -165,22 +175,22 @@
             <input id="nameField" type="text" name="name" />
             <label for="location">Location: </label>
             <select id='locationSelect'>
-                <option value='plot0'>Plot 0</option>
-                <option value='plot1'>Plot 1</option>
-                <option value='plot2'>Plot 2</option>
-                <option value='plot3'>Plot 3</option>
-                <option value='plot4'>Plot 4</option>
-                <option value='plot5'>Plot 5</option>
-                <option value='plot6'>Plot 6</option>
-                <option value='plot7'>Plot 7</option>
-                <option value='plot8'>Plot 8</option>
+                <option value='plot-0'>Plot 0</option>
+                <option value='plot-1'>Plot 1</option>
+                <option value='plot-2'>Plot 2</option>
+                <option value='plot-3'>Plot 3</option>
+                <option value='plot-4'>Plot 4</option>
+                <option value='plot-5'>Plot 5</option>
+                <option value='plot-6'>Plot 6</option>
+                <option value='plot-7'>Plot 7</option>
+                <option value='plot-8'>Plot 8</option>
             </select>
             <label for="rideType">Ride Type: </label>
             <select id='rideTypeSelect'>
-                <option value='rollercoaster'>Roller coaster</option>
+                <option value='rollerCoaster'>Roller coaster</option>
                 <option value='carousel'>Carousel</option>
-                <option value='ferriswheel'>Ferris Wheel</option>
-                <option value='bumpercars'>Bumper Cars</option>
+                <option value='ferrisWheel'>Ferris Wheel</option>
+                <option value='bumperCars'>Bumper Cars</option>
                 <option value='slide'>Slide</option>
             </select>
 
@@ -202,22 +212,22 @@
     <section id="content">
     </section>
     <section id="plots">
-        <section id="plot0">
+        <section id="plot-0">
 
             <h3>Plot 0: Empty</h3>
 
-            <!--<img src="media/emptyPlot.png" alt="Empty Plot"> -->
+            <img id= "plot0Image" src="/getEmptyPlot" alt="Empty Plot">
 
             <button type="button">Select Plot</button>
             <input type="submit" value="View Plot" />
 
         </section>
 
-        <section id="plot1">
+        <section id="plot-1">
 
             <h3>Plot 1: Empty</h3>
 
-            <!--<img src="media/emptyPlot.png" alt="Empty Plot"> -->
+            <img id= "plot1Image" src="/getEmptyPlot" alt="Empty Plot">
 
             <button type="button">Select Plot</button>
             <input type="submit" value="View Plot" />
@@ -226,77 +236,77 @@
 
         </section>
 
-        <section id="plot2">
+        <section id="plot-2">
 
             <h3>Plot 2: Empty</h3>
 
-            <!--<img src="media/emptyPlot.png" alt="Empty Plot"> -->
+            <img id= "plot2Image" src="/getEmptyPlot" alt="Empty Plot">
 
             <button type="button">Select Plot</button>
             <input type="submit" value="View Plot" />
 
         </section>
 
-        <section id="plot3">
+        <section id="plot-3">
 
             <h3>Plot 3: Empty</h3>
 
-            <!--<img src="media/emptyPlot.png" alt="Empty Plot"> -->
+            <img id= "plot3Image" src="/getEmptyPlot" alt="Empty Plot">
 
             <button type="button">Select Plot</button>
             <input type="submit" value="View Plot" />
 
         </section>
 
-        <section id="plot4">
+        <section id="plot-4">
 
             <h3>Plot 4: Empty</h3>
 
-            <!--<img src="media/emptyPlot.png" alt="Empty Plot"> -->
+            <img id= "plot4Image" src="/getEmptyPlot" alt="Empty Plot">
 
             <button type="button">Select Plot</button>
             <input type="submit" value="View Plot" />
 
         </section>
 
-        <section id="plot5">
+        <section id="plot-5">
 
             <h3>Plot 5: Empty</h3>
 
-            <!--<img src="media/emptyPlot.png" alt="Empty Plot"> -->
+            <img id= "plot5Image" src="/getEmptyPlot" alt="Empty Plot">
 
             <button type="button">Select Plot</button>
             <input type="submit" value="View Plot" />
 
         </section>
 
-        <section id="plot6">
+        <section id="plot-6">
 
             <h3>Plot 6: Empty</h3>
 
-            <!--<img src="media/emptyPlot.png" alt="Empty Plot"> -->
+            <img id= "plot6Image" src="/getEmptyPlot" alt="Empty Plot">
 
             <button type="button">Select Plot</button>
             <input type="submit" value="View Plot" />
 
         </section>
 
-        <section id="plot7">
+        <section id="plot-7">
 
             <h3>Plot 7: Empty</h3>
 
-            <!--<img src="media/emptyPlot.png" alt="Empty Plot"> -->
+            <img id= "plot7Image" src="/getEmptyPlot" alt="Empty Plot">
 
             <button type="button">Select Plot</button>
             <input type="submit" value="View Plot" />
 
         </section>
 
-        <section id="plot8">
+        <section id="plot-8">
 
             <h3>Plot 8: Empty</h3>
 
-            <!--<img src="media/emptyPlot.png" alt="Empty Plot"> -->
+            <img id= "plot8Image" src="/getEmptyPlot" alt="Empty Plot">
 
             <button type="button">Select Plot</button>
             <input type="submit" value="View Plot" />

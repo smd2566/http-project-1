@@ -4,6 +4,7 @@ const url = require('url'); // url module
 const query = require('querystring');
 const htmlHandler = require('./htmlResponses.js');
 const jsonHandler = require('./jsonResponses.js');
+const imageHandler = require('./imageResponses.js');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
@@ -39,8 +40,15 @@ const urlStruct = {
     '/': htmlHandler.getIndex,
     '/style.css': htmlHandler.getCSS,
     '/getRides': jsonHandler.getRides,
+    '/getBumperCars': imageHandler.getBumperCars,
+    '/getCarousel': imageHandler.getCarousel,
+    '/getEmptyPlot': imageHandler.getEmptyPlot,
+    '/getFerrisWheel': imageHandler.getFerrisWheel,
+    '/getRollerCoaster': imageHandler.getRollerCoaster,
+
     notFound: jsonHandler.notFound,
   },
+  // static file hosting for above and beyond
   HEAD: {
     '/getRides': jsonHandler.getRidesMeta,
     notFound: jsonHandler.notFoundMeta,
