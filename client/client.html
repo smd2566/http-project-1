@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Our simple HTTP server</title>
+    <title>Carnival Builder</title>
     <link rel="stylesheet" type="text/css" href="/style.css">
 
     <script>
@@ -94,6 +94,25 @@
 
         }
 
+        const viewPlot = (plotNumber) => {
+
+            let parts = plotNumber.split("-");
+            let imageString = `${parts[0]}${parts[1]}Image`;
+
+            let plotToBeViewed = document.getElementById(plotNumber);
+            let plotToBeViewedImage = document.getElementById(imageString);
+            let displayPlot = document.getElementById("displayPlot");
+
+
+            displayPlot.querySelector("h3").innerHTML = plotToBeViewed.querySelector("h3").innerHTML;
+            
+            displayPlot.querySelector("div").innerHTML = `<img src=${plotToBeViewedImage.src} alt="Empty Plot">`
+
+
+
+
+        }
+
         const sendGet = async (rideForm) => {
             const responseType = rideForm.querySelector("#methodSelect").value;
             const notRealSwitch = rideForm.querySelector("#urlField").value
@@ -126,7 +145,7 @@
             const nameField = nameForm.querySelector('#nameField');
             const locationSelect = nameForm.querySelector('#locationSelect');
 
-            const formData = `name=${nameField.value}&location=${locationSelect.value}&rideType=${rideTypeSelect.value}`;
+            const formData = `location=${locationSelect.value}&name=${nameField.value}&rideType=${rideTypeSelect.value}`;
 
             const response = await fetch(nameAction, {
                 method: nameMethod,
@@ -167,160 +186,165 @@
     </script>
 </head>
 
-<body>
-    <section id="top">
-        <h3>POST Status Code Tests</h3>
-        <form id="nameForm" action="/addRide" method="post">
-            <label for="name">Name: </label>
-            <input id="nameField" type="text" name="name" />
-            <label for="location">Location: </label>
-            <select id='locationSelect'>
-                <option value='plot-0'>Plot 0</option>
-                <option value='plot-1'>Plot 1</option>
-                <option value='plot-2'>Plot 2</option>
-                <option value='plot-3'>Plot 3</option>
-                <option value='plot-4'>Plot 4</option>
-                <option value='plot-5'>Plot 5</option>
-                <option value='plot-6'>Plot 6</option>
-                <option value='plot-7'>Plot 7</option>
-                <option value='plot-8'>Plot 8</option>
-            </select>
-            <label for="rideType">Ride Type: </label>
-            <select id='rideTypeSelect'>
-                <option value='rollerCoaster'>Roller coaster</option>
-                <option value='carousel'>Carousel</option>
-                <option value='ferrisWheel'>Ferris Wheel</option>
-                <option value='bumperCars'>Bumper Cars</option>
-                <option value='slide'>Slide</option>
-            </select>
+<div id = "container">
+    <body>
+        <section id="top">
+            <h3>Carnival Builder</h3>
+            <form id="nameForm" action="/addRide" method="post">
+                <label for="name">Name: </label>
+                <input id="nameField" type="text" name="name" />
+                <label for="location">Location: </label>
+                <select id='locationSelect'>
+                    <option value='plot-0'>Plot 0</option>
+                    <option value='plot-1'>Plot 1</option>
+                    <option value='plot-2'>Plot 2</option>
+                    <option value='plot-3'>Plot 3</option>
+                    <option value='plot-4'>Plot 4</option>
+                    <option value='plot-5'>Plot 5</option>
+                    <option value='plot-6'>Plot 6</option>
+                    <option value='plot-7'>Plot 7</option>
+                    <option value='plot-8'>Plot 8</option>
+                </select>
+                <label for="rideType">Ride Type: </label>
+                <select id='rideTypeSelect'>
+                    <option value='rollerCoaster'>Roller coaster</option>
+                    <option value='carousel'>Carousel</option>
+                    <option value='ferrisWheel'>Ferris Wheel</option>
+                    <option value='bumperCars'>Bumper Cars</option>
+                    <option value='slide'>Slide</option>
+                </select>
 
 
-            <input type="submit" value="Add Ride" />
-        </form>
-        <form id="rideForm" action="/getRides" method="get">
-            <select id='urlField'>
-                <option value='/getRides'>/getRides</option>
-                <option value='/notReal'>/notReal</option>
-            </select>
-            <select id="methodSelect">
-                <option value="get">GET</option>
-                <option value="head">HEAD</option>
-            </select>
-            <input type="submit" value="Get Ride" />
-        </form>
-    </section>
-    <section id="content">
-    </section>
-    <section id="plots">
-        <section id="plot-0">
+                <input type="submit" value="Add Ride" />
+            </form>
+            <form id="rideForm" action="/getRides" method="get">
+                <select id='urlField'>
+                    <option value='/getRides'>/getRides</option>
+                    <option value='/notReal'>/notReal</option>
+                </select>
+                <select id="methodSelect">
+                    <option value="get">GET</option>
+                    <option value="head">HEAD</option>
+                </select>
+                <input type="submit" value="Get Ride" />
+            </form>
+        </section>
+        <section id="content">
+        </section>
+        <section id="plots">
+            <section id="plot-0">
 
-            <h3>Plot 0: Empty</h3>
+                <h3>Plot 0: Empty</h3>
 
-            <img id= "plot0Image" src="/getEmptyPlot" alt="Empty Plot">
+                <img id= "plot0Image" src="/getEmptyPlot" alt="Empty Plot">
 
-            <button type="button">Select Plot</button>
-            <input type="submit" value="View Plot" />
+
+                <button onclick="viewPlot('plot-0')">View Plot</button>
+
+            </section>
+
+            <section id="plot-1">
+
+                <h3>Plot 1: Empty</h3>
+
+                <img id= "plot1Image" src="/getEmptyPlot" alt="Empty Plot">
+
+                
+                <button onclick="viewPlot('plot-1')">View Plot</button>
+
+
+
+            </section>
+
+            <section id="plot-2">
+
+                <h3>Plot 2: Empty</h3>
+
+                <img id= "plot2Image" src="/getEmptyPlot" alt="Empty Plot">
+
+                
+                <button onclick="viewPlot('plot-2')">View Plot</button>
+
+            </section>
+
+            <section id="plot-3">
+
+                <h3>Plot 3: Empty</h3>
+
+                <img id= "plot3Image" src="/getEmptyPlot" alt="Empty Plot">
+
+                
+                <button onclick="viewPlot('plot-3')">View Plot</button>
+
+            </section>
+
+            <section id="plot-4">
+
+                <h3>Plot 4: Empty</h3>
+
+                <img id= "plot4Image" src="/getEmptyPlot" alt="Empty Plot">
+
+                
+                <button onclick="viewPlot('plot-4')">View Plot</button>
+
+            </section>
+
+            <section id="plot-5">
+
+                <h3>Plot 5: Empty</h3>
+
+                <img id= "plot5Image" src="/getEmptyPlot" alt="Empty Plot">
+
+                
+                <button onclick="viewPlot('plot-5')">View Plot</button>
+
+            </section>
+
+            <section id="plot-6">
+
+                <h3>Plot 6: Empty</h3>
+
+                <img id= "plot6Image" src="/getEmptyPlot" alt="Empty Plot">
+
+                
+                <button onclick="viewPlot('plot-6')">View Plot</button>
+
+            </section>
+
+            <section id="plot-7">
+
+                <h3>Plot 7: Empty</h3>
+
+                <img id= "plot7Image" src="/getEmptyPlot" alt="Empty Plot">
+
+                
+                <button onclick="viewPlot('plot-7')">View Plot</button>
+
+            </section>
+
+            <section id="plot-8">
+
+                <h3>Plot 8: Empty</h3>
+
+                <img id= "plot8Image" src="/getEmptyPlot" alt="Empty Plot">
+
+                
+                <button onclick="viewPlot('plot-8')">View Plot</button>
+
+            </section>
+
+        </section>
+        
+        <section id="displayPlot">
+
+            <h3></h3>
+            <div></div>
+
 
         </section>
 
-        <section id="plot-1">
 
-            <h3>Plot 1: Empty</h3>
-
-            <img id= "plot1Image" src="/getEmptyPlot" alt="Empty Plot">
-
-            <button type="button">Select Plot</button>
-            <input type="submit" value="View Plot" />
-
-
-
-        </section>
-
-        <section id="plot-2">
-
-            <h3>Plot 2: Empty</h3>
-
-            <img id= "plot2Image" src="/getEmptyPlot" alt="Empty Plot">
-
-            <button type="button">Select Plot</button>
-            <input type="submit" value="View Plot" />
-
-        </section>
-
-        <section id="plot-3">
-
-            <h3>Plot 3: Empty</h3>
-
-            <img id= "plot3Image" src="/getEmptyPlot" alt="Empty Plot">
-
-            <button type="button">Select Plot</button>
-            <input type="submit" value="View Plot" />
-
-        </section>
-
-        <section id="plot-4">
-
-            <h3>Plot 4: Empty</h3>
-
-            <img id= "plot4Image" src="/getEmptyPlot" alt="Empty Plot">
-
-            <button type="button">Select Plot</button>
-            <input type="submit" value="View Plot" />
-
-        </section>
-
-        <section id="plot-5">
-
-            <h3>Plot 5: Empty</h3>
-
-            <img id= "plot5Image" src="/getEmptyPlot" alt="Empty Plot">
-
-            <button type="button">Select Plot</button>
-            <input type="submit" value="View Plot" />
-
-        </section>
-
-        <section id="plot-6">
-
-            <h3>Plot 6: Empty</h3>
-
-            <img id= "plot6Image" src="/getEmptyPlot" alt="Empty Plot">
-
-            <button type="button">Select Plot</button>
-            <input type="submit" value="View Plot" />
-
-        </section>
-
-        <section id="plot-7">
-
-            <h3>Plot 7: Empty</h3>
-
-            <img id= "plot7Image" src="/getEmptyPlot" alt="Empty Plot">
-
-            <button type="button">Select Plot</button>
-            <input type="submit" value="View Plot" />
-
-        </section>
-
-        <section id="plot-8">
-
-            <h3>Plot 8: Empty</h3>
-
-            <img id= "plot8Image" src="/getEmptyPlot" alt="Empty Plot">
-
-            <button type="button">Select Plot</button>
-            <input type="submit" value="View Plot" />
-
-        </section>
-
-
-
-
-
-
-
-
-    </section>
-</body>
-
+        
+    </body>
+</div>
 </html>

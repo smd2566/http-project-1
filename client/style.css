@@ -1,0 +1,44 @@
+#container {
+
+    display: grid;
+
+    grid-template-areas:
+        "top"
+        "content"
+        "plots"
+        "displayPlot";
+
+    grid-template-columns: 100%;
+    grid-template-rows: .0625fr .125fr .5fr .125fr;
+
+
+    height: 205vh;
+
+    text-align: center;
+
+
+}
+
+#plots {
+    grid-area: plots;
+    display: grid;
+
+    grid-template-areas:
+        "plot-0 plot-1 plot-2"
+        "plot-3 plot-4 plot-5"
+        "plot-6 plot-7 plot-8";
+
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: 33% 33% 33%;
+}
+
+#plot-0, #plot-1, #plot-2, #plot-3, #plot-4, #plot-5, #plot-6, #plot-7, #plot-8{
+    margin: 10px;
+}
+
+#plot-0 img, #plot-1 img, #plot-2 img, #plot-3 img, #plot-4 img, #plot-5 img, #plot-6 img, #plot-7 img, #plot-8 img{
+    height: 200px;
+    width: 250px;
+    max-width: 100%;
+    max-height: 100%;
+}

@@ -37,9 +37,11 @@ const parseBody = (request, response, handler) => {
 // object in the same way we have used urlStruct before.
 const urlStruct = {
   GET: {
-    '/': htmlHandler.getIndex,
-    '/style.css': htmlHandler.getCSS,
+    '/': htmlHandler.getClient1,
+    '/style.css': htmlHandler.getStyle1,
+    '/style2.css': htmlHandler.getStyle2,
     '/getRides': jsonHandler.getRides,
+    '/viewPlot': jsonHandler.viewPlot,
     '/getBumperCars': imageHandler.getBumperCars,
     '/getCarousel': imageHandler.getCarousel,
     '/getEmptyPlot': imageHandler.getEmptyPlot,
@@ -63,13 +65,15 @@ const onRequest = (request, response) => {
   // first we have to parse information from the url
   const parsedUrl = url.parse(request.url);
 
+  const params = query.parse(parsedUrl.query);
+
   // next we need to ensure that we can handle the request
   // method that they are making the request with. This server
   // is only built to handle GET and HEAD requests, so we want
   // to send back a 404 if they make anything else. We can use
   // the HEAD version of notFound to send just a 404 status code.
   if (!urlStruct[request.method]) {
-    return urlStruct.HEAD.notFound(request, response);
+    return urlStruct.HEAD.notFound(request, response, params);
   }
 
   // now we check to see if we have something to handle the
@@ -79,10 +83,10 @@ const onRequest = (request, response) => {
   // by the pathname to get the handler. Inside the if, we can
   // use that same syntax to call the actual function.
   if (urlStruct[request.method][parsedUrl.pathname]) {
-    return urlStruct[request.method][parsedUrl.pathname](request, response);
+    return urlStruct[request.method][parsedUrl.pathname](request, response, params);
   }
 
-  return urlStruct[request.method].notFound(request, response);
+  return urlStruct[request.method].notFound(request, response, params);
 };
 
 // start server

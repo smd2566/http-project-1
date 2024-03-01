@@ -50,20 +50,20 @@ const addRide = (request, response, body) => {
     message: 'Ride name, location and ride type are all required.',
   };
 
-  if (!body.name || !body.location || !body.rideType) {
+  if (!body.location || !body.name || !body.rideType) {
     responseJSON.id = 'missingParams';
     return respondJSON(request, response, 400, responseJSON);
   }
 
   let responseCode = 204;
-  if (!rides[body.name]) {
+  if (!rides[body.location]) {
     responseCode = 201;
-    rides[body.name] = {};
+    rides[body.location] = {};
   }
 
-  rides[body.name].name = body.name;
-  rides[body.name].location = body.location;
-  rides[body.name].rideType = body.rideType;
+  rides[body.location].location = body.location;
+  rides[body.location].name = body.name;
+  rides[body.location].rideType = body.rideType;
 
   if (responseCode === 201) {
     responseJSON.message = 'Created Successfully';
@@ -71,6 +71,45 @@ const addRide = (request, response, body) => {
   }
 
   return respondJSONMeta(request, response, responseCode);
+};
+
+const viewPlot = (request, response, params) => {
+  const responseObject = {
+    message: 'This request has the required parameters',
+  };
+
+  switch (params.plotNumber) {
+    case 0:
+      // content.innerHTML = '<b>Success</b>';
+      break;
+    case 1:
+      // content.innerHTML = '<b>Bad Request</b>';
+      break;
+    case 2:
+      // content.innerHTML = '<b>Unauthorized</b>';
+      break;
+    case 3:
+      // content.innerHTML = '<b>Forbidden</b>';
+      break;
+    case 4:
+      // content.innerHTML = '<b>Not Found</b>';
+      break;
+    case 5:
+      // content.innerHTML = '<b>Internal Server Error<b>';
+      break;
+    case 6:
+      // content.innerHTML = '<b>Not Implemented<b>';
+      break;
+    case 7:
+      // content.innerHTML = '<b>Not Implemented<b>';
+      break;
+    case 8:
+      // content.innerHTML = '<b>Not Implemented<b>';
+      break;
+    default: // Anything Else
+      // content.innerHTML = '<p>Status Code not Implemented By Client</p>';
+      break;
+  }
 };
 
 const notFound = (request, response) => {
@@ -97,4 +136,5 @@ module.exports = {
   getRides,
   getRidesMeta,
   addRide,
+  viewPlot,
 };
