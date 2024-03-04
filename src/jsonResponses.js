@@ -74,42 +74,30 @@ const addRide = (request, response, body) => {
 };
 
 const getPlotData = (request, response, params) => {
-  const responseObject = {
-    message: 'This request has the required parameters',
+
+  const rideToReturn = {};
+
+  Object.values(rides).forEach(ride => {
+    if (params.plotNumber === ride.location){
+      rideToReturn = ride;
+
+    } else {
+      rideToReturn = {
+        location: params.plotNumber,
+        name: "Empty",
+        rideType: "empty"
+
+      }
+    }
+  });
+
+  // json object to send
+  const responseJSON = {
+    rideToReturn,
   };
 
-  switch (params.plotNumber) {
-    case 0:
-      // content.innerHTML = '<b>Success</b>';
-      break;
-    case 1:
-      // content.innerHTML = '<b>Bad Request</b>';
-      break;
-    case 2:
-      // content.innerHTML = '<b>Unauthorized</b>';
-      break;
-    case 3:
-      // content.innerHTML = '<b>Forbidden</b>';
-      break;
-    case 4:
-      // content.innerHTML = '<b>Not Found</b>';
-      break;
-    case 5:
-      // content.innerHTML = '<b>Internal Server Error<b>';
-      break;
-    case 6:
-      // content.innerHTML = '<b>Not Implemented<b>';
-      break;
-    case 7:
-      // content.innerHTML = '<b>Not Implemented<b>';
-      break;
-    case 8:
-      // content.innerHTML = '<b>Not Implemented<b>';
-      break;
-    default: // Anything Else
-      // content.innerHTML = '<p>Status Code not Implemented By Client</p>';
-      break;
-  }
+  // return 200 with message
+  return respondJSON(request, response, 200, responseJSON);
 };
 
 const notFound = (request, response) => {

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,12 +10,97 @@
 
     <script>
 
+        const handleResponse = async (response, methodType) => {
+            if (methodType) {
+                const obj = await response.json();
+                const objStringified = JSON.stringify(obj);
+                const jsonInformation = JSON.parse(objStringified);
+
+                if (obj.rides) {
+
+                    setPlot(obj);
+
+                }
+
+            }
+
+
+        };
+
+        const sendGet = async () => {
+
+            const response = await fetch({
+                method: '/getPlotData',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept': 'application/json',
+                },
+            });
+
+            handleResponse(response, true)
+
+        };
+
+        const setPlot = async (obj) => {
+
+            
+            
+                let displayPlot = document.querySelector("#displayPlot");
+                let rideArray = obj.location.split('-');
+                let imageCommandString = "";
+
+                switch (obj.rideType) {
+                    case "rollerCoaster":
+                        imageCommandString = "/getRollerCoaster";
+                        break;
+                    case "carousel":
+                        imageCommandString = "/getCarousel";
+                        break;
+                    case "ferrisWheel":
+                        imageCommandString = "/getFerrisWheel";
+                        return;
+                    case "bumperCars":
+                        imageCommandString = "/getBumperCars";
+                        break;
+                    case "slide":
+                        imageCommandString = "/getSlide";
+                        break;
+                    default:
+                        imageCommandString = "/getEmptyPlot";
+                        break;
+                }
+
+                displayPlot.querySelector("h3").innerHTML = `Plot ${rideArray[1]} : ${ride.name}`;
+                displayPlot.querySelector("div").innerHTML = `<img src=${imageCommandString} alt="Empty Plot">`
+
+            
+
+
+        };
+
+        const init = () => {
+            sendGet();
+        };
+
+        window.onload = init;
+
 
     </script>
 
 
 </head>
+
 <body>
-    
+
+    <section id="displayPlot">
+
+        <h3></h3>
+        <div></div>
+
+
+    </section>
+
+
 </body>
+
 </html>

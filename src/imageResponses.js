@@ -5,7 +5,8 @@ const carouselImage = fs.readFileSync(`${__dirname}/../client/media/carousel.png
 const emptyPlotImage = fs.readFileSync(`${__dirname}/../client/media/emptyPlot.png`);
 const ferrisWheelImage = fs.readFileSync(`${__dirname}/../client/media/ferrisWheel.png`);
 const rollerCoasterImage = fs.readFileSync(`${__dirname}/../client/media/rollerCoaster.png`);
-const slideImage = fs.readFileSync(`${__dirname}/../client/media/emptyPlot.png`);
+const slideImage = fs.readFileSync(`${__dirname}/../client/media/slide.png`);
+const skyImage = fs.readFileSync(`${__dirname}/../client/media/skyImage.jpg`);
 
 const getBumperCars = (request, response) => {
   response.writeHead(200, { 'Content-Type': 'image/png' });
@@ -43,9 +44,17 @@ const getSlide = (request, response) => {
   response.end();
 };
 
+const getSky = (request, response) => {
+    response.writeHead(200, { 'Content-Type': 'image/png' });
+    response.write(skyImage);
+    response.end();
+  };
+  
+
 module.exports.getBumperCars = getBumperCars;
 module.exports.getCarousel = getCarousel;
 module.exports.getEmptyPlot = getEmptyPlot;
 module.exports.getFerrisWheel = getFerrisWheel;
 module.exports.getRollerCoaster = getRollerCoaster;
 module.exports.getSlide = getSlide;
+module.exports.getSky = getSky;

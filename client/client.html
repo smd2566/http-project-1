@@ -3,6 +3,9 @@
 
 <head>
     <title>Carnival Builder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Slackey&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/style.css">
 
     <script>
@@ -12,19 +15,19 @@
             const currentPark = content.querySelector('#currentPark');
             switch (response.status) {
                 case 200:
-                    content.querySelector('#responseMessage').innerHTML = `<b>Success</b>`;
+                    content.querySelector('#responseMessage').innerHTML = `<h3>Message: <b>Success</b></h3>`;
                     break;
                 case 201:
-                    content.querySelector('#responseMessage').innerHTML = '<b>Created</b>';
+                    content.querySelector('#responseMessage').innerHTML = '<h3>Message: <b>Created</b></h3>';
                     break;
                 case 204:
-                    content.querySelector('#responseMessage').innerHTML = '<b>Updated (No Content)</b>';
+                    content.querySelector('#responseMessage').innerHTML = '<h3>Message: <b>Updated (No Content)</b></h3>';
                     return;
                 case 400:
-                    content.querySelector('#responseMessage').innerHTML = `<b>Bad Request</b>`;
+                    content.querySelector('#responseMessage').innerHTML = `<h3>Message: <b>Bad Request</b></h3>`;
                     break;
                 case 404:
-                    content.querySelector('#responseMessage').innerHTML = `<b>Page Not Found</b>`;
+                    content.querySelector('#responseMessage').innerHTML = `<h3>Message: <b>Page Not Found</b></h3>`;
                     break;
                 default:
                     content.querySelector('#responseMessage').innerHTML = `Error code not implemented by client.`;
@@ -43,9 +46,9 @@
                 }
 
                 if (!JSON.stringify(obj)){
-                    content.querySelector('#rawData').innerHTML = `<p>Raw Data: No data returned (HEAD request) </p>`;
+                    content.querySelector('#rawData').innerHTML = `<h3>Raw Data:</h3> <p>No data returned (HEAD request) </p>`;
                 } else {
-                    content.querySelector('#rawData').innerHTML = `<p>Raw Data: ${objStringified}</p>`;
+                    content.querySelector('#rawData').innerHTML = `<h3>Raw Data:</h3> <p>${objStringified}</p>`;
                 }
                 
 
@@ -276,8 +279,8 @@
             </form>
         </section>
         <section id="content">
-            <section id="responseMessage">Response Message: </section>
-            <section id="rawData">Raw Data: </section>
+            <section id="responseMessage"><h3>Response Message: </h3> </section>
+            <section id="rawData"><h3>Raw Data: </h3></section>
             <section id="currentPark">
                 <section id="plot-0Textual">
                     <h3>Plot 0: Currently Empty</h3>
