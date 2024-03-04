@@ -19,6 +19,47 @@
 
 }
 
+
+
+#content {
+    grid-area: content;
+    display: grid;
+
+    grid-template-areas:
+        "responseMessage rawData rawData"
+        "currentPark currentPark currentPark";
+
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: 50% 50%;
+}
+
+#responseMessage{
+    grid-area: responseMessage;
+    display: grid;
+    text-align: center;
+}
+
+#rawData{
+    grid-area: rawData;
+    display: grid;
+    text-align: center;
+}
+
+#currentPark {
+    grid-area: currentPark;
+    display: grid;
+
+    grid-template-areas:
+        "plot-0Textual plot-1Textual plot-2Textual"
+        "plot-3Textual plot-4Textual plot-5Textual"
+        "plot-6Textual plot-7Textual plot-8Textual";
+
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: 33% 33% 33%;
+
+
+}
+
 #plots {
     grid-area: plots;
     display: grid;
@@ -32,13 +73,54 @@
     grid-template-rows: 33% 33% 33%;
 }
 
-#plot-0, #plot-1, #plot-2, #plot-3, #plot-4, #plot-5, #plot-6, #plot-7, #plot-8{
+#plot-0,
+#plot-1,
+#plot-2,
+#plot-3,
+#plot-4,
+#plot-5,
+#plot-6,
+#plot-7,
+#plot-8 {
     margin: 10px;
 }
 
-#plot-0 img, #plot-1 img, #plot-2 img, #plot-3 img, #plot-4 img, #plot-5 img, #plot-6 img, #plot-7 img, #plot-8 img{
+#plot-0 img,
+#plot-1 img,
+#plot-2 img,
+#plot-3 img,
+#plot-4 img,
+#plot-5 img,
+#plot-6 img,
+#plot-7 img,
+#plot-8 img {
     height: 200px;
-    width: 250px;
+    width: 300px;
     max-width: 100%;
     max-height: 100%;
+}
+
+#plot-0 h3,
+#plot-1 h3,
+#plot-2 h3,
+#plot-3 h3,
+#plot-4 h3,
+#plot-5 h3,
+#plot-6 h3,
+#plot-7 h3,
+#plot-8 h3 {
+    text-align: auto;
+}
+
+#plot-0 button,
+#plot-1 button,
+#plot-2 button,
+#plot-3 button,
+#plot-4 button,
+#plot-5 button,
+#plot-6 button,
+#plot-7 button,
+#plot-8 button {
+    padding: 10px;
+    width: 300px;
 }

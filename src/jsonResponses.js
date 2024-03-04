@@ -73,7 +73,7 @@ const addRide = (request, response, body) => {
   return respondJSONMeta(request, response, responseCode);
 };
 
-const viewPlot = (request, response, params) => {
+const getPlotData = (request, response, params) => {
   const responseObject = {
     message: 'This request has the required parameters',
   };
@@ -136,5 +136,5 @@ module.exports = {
   getRides,
   getRidesMeta,
   addRide,
-  viewPlot,
+  getPlotData,
 };

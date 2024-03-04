@@ -9,24 +9,25 @@
 
         const handleResponse = async (response, methodType) => {
             const content = document.querySelector('#content');
+            const currentPark = content.querySelector('#currentPark');
             switch (response.status) {
                 case 200:
-                    content.innerHTML = `<b>Success</b>`;
+                    content.querySelector('#responseMessage').innerHTML = `<b>Success</b>`;
                     break;
                 case 201:
-                    content.innerHTML = '<b>Created</b>';
+                    content.querySelector('#responseMessage').innerHTML = '<b>Created</b>';
                     break;
                 case 204:
-                    content.innerHTML = '<b>Updated (No Content)</b>';
+                    content.querySelector('#responseMessage').innerHTML = '<b>Updated (No Content)</b>';
                     return;
                 case 400:
-                    content.innerHTML = `<b>Bad Request</b>`;
+                    content.querySelector('#responseMessage').innerHTML = `<b>Bad Request</b>`;
                     break;
                 case 404:
-                    content.innerHTML = `<b>Page Not Found</b>`;
+                    content.querySelector('#responseMessage').innerHTML = `<b>Page Not Found</b>`;
                     break;
                 default:
-                    content.innerHTML = `Error code not implemented by client.`;
+                    content.querySelector('#responseMessage').innerHTML = `Error code not implemented by client.`;
                     break;
             }
 
@@ -38,9 +39,53 @@
                 //console.log(jsonInformation.rides);
                 if (obj.message) {
                     //console.log(obj.message);
-                    content.innerHTML += `<p>${obj.message}</p>`;
+                    content.querySelector('#responseMessage').innerHTML += `Response Message: <p>${obj.message}</p>`;
                 }
-                content.innerHTML += `<p>${objStringified}</p>`;
+
+                if (!JSON.stringify(obj)){
+                    content.querySelector('#rawData').innerHTML = `<p>Raw Data: No data returned (HEAD request) </p>`;
+                } else {
+                    content.querySelector('#rawData').innerHTML = `<p>Raw Data: ${objStringified}</p>`;
+                }
+                
+
+                console.log(objStringified);
+
+                if (obj.rides) {
+                    Object.values(obj.rides).forEach(ride => {
+                        let element = document.getElementById(ride.location);
+                        let rideArray = ride.location.split('-');
+                        let rideString = "";
+
+                        switch (ride.rideType) {
+                            case "rollerCoaster":
+                                rideString = "Roller Coaster";
+                                break;
+                            case "carousel":
+                                rideString = "Carousel";
+                                break;
+                            case "ferrisWheel":
+                                rideString = "Ferris Wheel";
+                                return;
+                            case "bumperCars":
+                                rideString = "Bumper Cars";
+                                break;
+                            case "slide":
+                                rideString = "Slide";
+                                break;
+                            default:
+                                break;
+                        }
+
+                        let selectorString = `#${ride.location}Textual`;
+                        console.log(selectorString);
+
+                        let textPlotToBeChanged = currentPark.querySelector(selectorString);
+
+                        textPlotToBeChanged.querySelector("h3").innerHTML = `Plot ${rideArray[1]} | Ride Name: ${ride.name}, Ride Type: ${rideString}`;
+
+                    });
+                }
 
 
                 //This code triggers when GET is pressed, so i think this is where I'd update the plot images
@@ -105,7 +150,7 @@
 
 
             displayPlot.querySelector("h3").innerHTML = plotToBeViewed.querySelector("h3").innerHTML;
-            
+
             displayPlot.querySelector("div").innerHTML = `<img src=${plotToBeViewedImage.src} alt="Empty Plot">`
 
 
@@ -186,7 +231,8 @@
     </script>
 </head>
 
-<div id = "container">
+<div id="container">
+
     <body>
         <section id="top">
             <h3>Carnival Builder</h3>
@@ -230,13 +276,54 @@
             </form>
         </section>
         <section id="content">
+            <section id="responseMessage">Response Message: </section>
+            <section id="rawData">Raw Data: </section>
+            <section id="currentPark">
+                <section id="plot-0Textual">
+                    <h3>Plot 0: Currently Empty</h3>
+                </section>
+
+                <section id="plot-1Textual">
+                    <h3>Plot 1: Currently Empty</h3>
+                </section>
+
+                <section id="plot-2Textual">
+                    <h3>Plot 2: Currently Empty</h3>
+                </section>
+
+                <section id="plot-3Textual">
+                    <h3>Plot 3: Currently Empty</h3>
+                </section>
+
+                <section id="plot-4Textual">
+                    <h3>Plot 4: Currently Empty</h3>
+                </section>
+
+                <section id="plot-5Textual">
+                    <h3>Plot 5: Currently Empty</h3>
+                </section>
+
+                <section id="plot-6Textual">
+                    <h3>Plot 6: Currently Empty</h3>
+                </section>
+
+                <section id="plot-7Textual">
+                    <h3>Plot 7: Currently Empty</h3>
+                </section>
+
+                <section id="plot-8Textual">
+                    <h3>Plot 8: Currently Empty</h3>
+                </section>
+
+
+            </section>
         </section>
         <section id="plots">
             <section id="plot-0">
 
                 <h3>Plot 0: Empty</h3>
 
-                <img id= "plot0Image" src="/getEmptyPlot" alt="Empty Plot">
+                <img id="plot0Image" src="/getEmptyPlot" alt="Empty Plot">
 
 
                 <button onclick="viewPlot('plot-0')">View Plot</button>
@@ -247,9 +334,9 @@
 
                 <h3>Plot 1: Empty</h3>
 
-                <img id= "plot1Image" src="/getEmptyPlot" alt="Empty Plot">
+                <img id="plot1Image" src="/getEmptyPlot" alt="Empty Plot">
 
-                
+
                 <button onclick="viewPlot('plot-1')">View Plot</button>
 
 
@@ -260,9 +347,9 @@
 
                 <h3>Plot 2: Empty</h3>
 
-                <img id= "plot2Image" src="/getEmptyPlot" alt="Empty Plot">
+                <img id="plot2Image" src="/getEmptyPlot" alt="Empty Plot">
 
-                
+
                 <button onclick="viewPlot('plot-2')">View Plot</button>
 
             </section>
@@ -271,9 +358,9 @@
 
                 <h3>Plot 3: Empty</h3>
 
-                <img id= "plot3Image" src="/getEmptyPlot" alt="Empty Plot">
+                <img id="plot3Image" src="/getEmptyPlot" alt="Empty Plot">
 
-                
+
                 <button onclick="viewPlot('plot-3')">View Plot</button>
 
             </section>
@@ -282,9 +369,9 @@
 
                 <h3>Plot 4: Empty</h3>
 
-                <img id= "plot4Image" src="/getEmptyPlot" alt="Empty Plot">
+                <img id="plot4Image" src="/getEmptyPlot" alt="Empty Plot">
 
-                
+
                 <button onclick="viewPlot('plot-4')">View Plot</button>
 
             </section>
@@ -293,9 +380,9 @@
 
                 <h3>Plot 5: Empty</h3>
 
-                <img id= "plot5Image" src="/getEmptyPlot" alt="Empty Plot">
+                <img id="plot5Image" src="/getEmptyPlot" alt="Empty Plot">
 
-                
+
                 <button onclick="viewPlot('plot-5')">View Plot</button>
 
             </section>
@@ -304,9 +391,9 @@
 
                 <h3>Plot 6: Empty</h3>
 
-                <img id= "plot6Image" src="/getEmptyPlot" alt="Empty Plot">
+                <img id="plot6Image" src="/getEmptyPlot" alt="Empty Plot">
 
-                
+
                 <button onclick="viewPlot('plot-6')">View Plot</button>
 
             </section>
@@ -315,9 +402,9 @@
 
                 <h3>Plot 7: Empty</h3>
 
-                <img id= "plot7Image" src="/getEmptyPlot" alt="Empty Plot">
+                <img id="plot7Image" src="/getEmptyPlot" alt="Empty Plot">
 
-                
+
                 <button onclick="viewPlot('plot-7')">View Plot</button>
 
             </section>
@@ -326,15 +413,15 @@
 
                 <h3>Plot 8: Empty</h3>
 
-                <img id= "plot8Image" src="/getEmptyPlot" alt="Empty Plot">
+                <img id="plot8Image" src="/getEmptyPlot" alt="Empty Plot">
 
-                
+
                 <button onclick="viewPlot('plot-8')">View Plot</button>
 
             </section>
 
         </section>
-        
+
         <section id="displayPlot">
 
             <h3></h3>
@@ -344,7 +431,8 @@
         </section>
 
 
-        
+
     </body>
 </div>
+
 </html>

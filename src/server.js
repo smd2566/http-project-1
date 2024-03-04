@@ -41,7 +41,7 @@ const urlStruct = {
     '/style.css': htmlHandler.getStyle1,
     '/style2.css': htmlHandler.getStyle2,
     '/getRides': jsonHandler.getRides,
-    '/viewPlot': jsonHandler.viewPlot,
+    '/viewPlot': htmlHandler.getClient2,
     '/getBumperCars': imageHandler.getBumperCars,
     '/getCarousel': imageHandler.getCarousel,
     '/getEmptyPlot': imageHandler.getEmptyPlot,
