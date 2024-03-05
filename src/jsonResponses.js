@@ -29,6 +29,7 @@ const respondJSONMeta = (request, response, status) => {
   response.end();
 };
 
+//Retrieves the current rides in the object and returns it to the server
 const getRides = (request, response) => {
   // json object to send
   const responseJSON = {
@@ -42,9 +43,10 @@ const getRides = (request, response) => {
 // get meta info about user object
 // should calculate a 200
 // return 200 without message, just the meta data
+//Returns the current rides object without the metadata
 const getRidesMeta = (request, response) => respondJSONMeta(request, response, 200);
 
-// function just to update our object
+// Adds a ride to the current list of rides
 const addRide = (request, response, body) => {
   const responseJSON = {
     message: 'Ride name, location and ride type are all required.',
@@ -73,32 +75,31 @@ const addRide = (request, response, body) => {
   return respondJSONMeta(request, response, responseCode);
 };
 
+//Sets the external viewPlot url with data about a current plot in the list of current plots
 const getPlotData = (request, response, params) => {
+  let locationString = 'plot-?';
 
-  let locationString = "plot-?";
-
-  if (params.plotNumber){
+  if (params.plotNumber) {
     locationString = params.plotNumber;
   }
 
   const emptyRide = {
     location: locationString,
-    name: "Empty",
-    rideType: "empty"
+    name: 'Empty',
+    rideType: 'empty',
 
-  }
-
-  const found = Object.values(rides).filter(x=>x.location === params.plotNumber);
-  if (found.length === 0){
-    return respondJSON(request, response, 200, emptyRide);
-
-  } else {
-    return respondJSON(request, response, 200, found[0]);
   };
+
+  const found = Object.values(rides).filter((x) => x.location === params.plotNumber);
+  if (found.length === 0) {
+    return respondJSON(request, response, 200, emptyRide);
+  }
+  return respondJSON(request, response, 200, found[0]);
 
   // return 200 with message
 };
 
+//notFound method for if a page is unrecognized by the server
 const notFound = (request, response) => {
   // create error message for response
   const responseJSON = {

@@ -10,6 +10,7 @@
 
     <script>
 
+        //If the object exists, set the inidividual plot for the specified object
         const handleResponse = async (response, methodType) => {
             if (methodType) {
                 const obj = await response.json();
@@ -25,6 +26,7 @@
 
         };
 
+        //GET request handler for taking the url into account
         const sendGet = async () => {
 
             const params = window.location.href.split("?")[1];
@@ -42,6 +44,7 @@
 
         };
 
+        //Sets the individual plot on screen based on the returned object
         const setPlot = async (obj) => {
 
             console.log(obj);
@@ -80,6 +83,7 @@
 
         };
 
+        //Initializes the page and calls sendGet()
         const init = () => {
             sendGet();
         };

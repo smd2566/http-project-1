@@ -10,6 +10,8 @@
 
     <script>
 
+        //Handles the response and sets the page data with the response data accordingly
+
         const handleResponse = async (response, methodType) => {
             const content = document.querySelector('#content');
             const currentPark = content.querySelector('#currentPark');
@@ -39,15 +41,11 @@
                 const obj = await response.json();
                 const objStringified = JSON.stringify(obj);
                 const jsonInformation = JSON.parse(objStringified);
-                //console.log(jsonInformation.rides);
                 if (obj.message) {
-                    //console.log(obj.message);
                     content.querySelector('#responseMessage').innerHTML += `Response Message: <p>${obj.message}</p>`;
                 }
 
                 content.querySelector('#rawData').innerHTML = `<h3>Raw Data:</h3> <p>${objStringified}</p>`;
-
-
 
                 console.log(objStringified);
 
@@ -78,7 +76,6 @@
                         }
 
                         let selectorString = `#${ride.location}Textual`;
-                        console.log(selectorString);
 
                         let textPlotToBeChanged = currentPark.querySelector(selectorString);
 
@@ -88,10 +85,7 @@
                 }
 
 
-                //This code triggers when GET is pressed, so i think this is where I'd update the plot images
-                //and labels
-
-
+               //if the object exists, start setting the images
                 if (obj.rides) {
                     setPlots(obj);
                 }
@@ -104,9 +98,9 @@
 
         };
 
+        //Sets the images for the plots on screen, as well as the attributed h3 tags
         const setPlots = async (jsonInformation) => {
 
-            //I am currently not iterating properly through these
             console.log(jsonInformation);
 
 
@@ -141,6 +135,7 @@
 
         }
 
+        //Populates the end of the page with a larger view of a specific plot
         const viewPlot = (plotNumber) => {
 
             let parts = plotNumber.split("-");
@@ -160,6 +155,7 @@
 
         }
 
+        //Functionality to handle GET requests
         const sendGet = async (rideForm) => {
             const responseType = rideForm.querySelector("#methodSelect").value;
             const notRealSwitch = rideForm.querySelector("#urlField").value
@@ -185,6 +181,8 @@
         }
 
 
+        //Functionality to handle POST requests
+        //Initial structure by Austin Willoughby
         const sendPost = async (nameForm) => {
             const nameAction = nameForm.getAttribute('action');
             const nameMethod = nameForm.getAttribute('method');
@@ -206,6 +204,7 @@
             handleResponse(response, true);
         };
 
+        //Initializes the buttons and functions for handling requests and utilizing the above functions
         const init = () => {
             const nameForm = document.querySelector('#nameForm');
             const rideForm = document.querySelector('#rideForm');

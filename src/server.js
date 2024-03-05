@@ -1,10 +1,10 @@
-// Initial Server.js structure by Austin Willoughby
+// Initial Server.js structure / large comment blocks by Austin Willoughby
 const http = require('http'); // http module
 const url = require('url'); // url module
-const query = require('querystring');
-const htmlHandler = require('./htmlResponses.js');
-const jsonHandler = require('./jsonResponses.js');
-const imageHandler = require('./imageResponses.js');
+const query = require('querystring'); //query string
+const htmlHandler = require('./htmlResponses.js'); //htmlResponses object reference
+const jsonHandler = require('./jsonResponses.js'); //jsonResponses object reference
+const imageHandler = require('./imageResponses.js'); //imageResponses object reference
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
@@ -35,6 +35,8 @@ const parseBody = (request, response, handler) => {
 // urlStruct[request.method], we recieve another object which
 // routes each individual url to a handler. We can index this
 // object in the same way we have used urlStruct before.
+
+//Structure to handle server urls
 const urlStruct = {
   GET: {
     '/': htmlHandler.getClient1,
