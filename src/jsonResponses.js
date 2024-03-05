@@ -75,29 +75,28 @@ const addRide = (request, response, body) => {
 
 const getPlotData = (request, response, params) => {
 
-  const rideToReturn = {};
+  let locationString = "plot-?";
 
-  Object.values(rides).forEach(ride => {
-    if (params.plotNumber === ride.location){
-      rideToReturn = ride;
+  if (params.plotNumber){
+    locationString = params.plotNumber;
+  }
 
-    } else {
-      rideToReturn = {
-        location: params.plotNumber,
-        name: "Empty",
-        rideType: "empty"
+  const emptyRide = {
+    location: locationString,
+    name: "Empty",
+    rideType: "empty"
 
-      }
-    }
-  });
+  }
 
-  // json object to send
-  const responseJSON = {
-    rideToReturn,
+  const found = Object.values(rides).filter(x=>x.location === params.plotNumber);
+  if (found.length === 0){
+    return respondJSON(request, response, 200, emptyRide);
+
+  } else {
+    return respondJSON(request, response, 200, found[0]);
   };
 
   // return 200 with message
-  return respondJSON(request, response, 200, responseJSON);
 };
 
 const notFound = (request, response) => {

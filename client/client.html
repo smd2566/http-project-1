@@ -45,12 +45,9 @@
                     content.querySelector('#responseMessage').innerHTML += `Response Message: <p>${obj.message}</p>`;
                 }
 
-                if (!JSON.stringify(obj)){
-                    content.querySelector('#rawData').innerHTML = `<h3>Raw Data:</h3> <p>No data returned (HEAD request) </p>`;
-                } else {
-                    content.querySelector('#rawData').innerHTML = `<h3>Raw Data:</h3> <p>${objStringified}</p>`;
-                }
-                
+                content.querySelector('#rawData').innerHTML = `<h3>Raw Data:</h3> <p>${objStringified}</p>`;
+
+
 
                 console.log(objStringified);
 
@@ -100,6 +97,8 @@
                 }
 
 
+            } else {
+                content.querySelector('#rawData').innerHTML = `<h3>Raw Data:</h3> <p>No data returned (HEAD request) </p>`;
             }
 
 
@@ -117,19 +116,19 @@
 
                 switch (ride.rideType) {
                     case "rollerCoaster":
-                        element.querySelector("img").src = "/getRollerCoaster";
+                        element.querySelector("img").src = "/getImage?name=rollerCoaster.png";
                         break;
                     case "carousel":
-                        element.querySelector("img").src = "/getCarousel";
+                        element.querySelector("img").src = "/getImage?name=carousel.png";
                         break;
                     case "ferrisWheel":
-                        element.querySelector("img").src = "/getFerrisWheel";
+                        element.querySelector("img").src = "/getImage?name=ferrisWheel.png";
                         return;
                     case "bumperCars":
-                        element.querySelector("img").src = "/getBumperCars";
+                        element.querySelector("img").src = "/getImage?name=bumperCars.png";
                         break;
                     case "slide":
-                        element.querySelector("img").src = "/getSlide";
+                        element.querySelector("img").src = "/getImage?name=slide.png";
                         break;
                     default:
                         break;
@@ -240,7 +239,7 @@
         <section id="top">
             <h3>Carnival Builder</h3>
             <form id="nameForm" action="/addRide" method="post">
-                <label for="name">Name: </label>
+                <label for="name">Ride Name: </label>
                 <input id="nameField" type="text" name="name" />
                 <label for="location">Location: </label>
                 <select id='locationSelect'>
@@ -279,8 +278,12 @@
             </form>
         </section>
         <section id="content">
-            <section id="responseMessage"><h3>Response Message: </h3> </section>
-            <section id="rawData"><h3>Raw Data: </h3></section>
+            <section id="responseMessage">
+                <h3>Response Message: </h3>
+            </section>
+            <section id="rawData">
+                <h3>Raw Data: </h3>
+            </section>
             <section id="currentPark">
                 <section id="plot-0Textual">
                     <h3>Plot 0: Currently Empty</h3>
@@ -326,7 +329,7 @@
 
                 <h3>Plot 0: Empty</h3>
 
-                <img id="plot0Image" src="/getEmptyPlot" alt="Empty Plot">
+                <img id="plot0Image" src="/getImage?name=emptyPlot.png" alt="Empty Plot">
 
 
                 <button onclick="viewPlot('plot-0')">View Plot</button>
@@ -337,7 +340,7 @@
 
                 <h3>Plot 1: Empty</h3>
 
-                <img id="plot1Image" src="/getEmptyPlot" alt="Empty Plot">
+                <img id="plot1Image" src="/getImage?name=emptyPlot.png" alt="Empty Plot">
 
 
                 <button onclick="viewPlot('plot-1')">View Plot</button>
@@ -350,7 +353,7 @@
 
                 <h3>Plot 2: Empty</h3>
 
-                <img id="plot2Image" src="/getEmptyPlot" alt="Empty Plot">
+                <img id="plot2Image" src="/getImage?name=emptyPlot.png" alt="Empty Plot">
 
 
                 <button onclick="viewPlot('plot-2')">View Plot</button>
@@ -361,7 +364,7 @@
 
                 <h3>Plot 3: Empty</h3>
 
-                <img id="plot3Image" src="/getEmptyPlot" alt="Empty Plot">
+                <img id="plot3Image" src="/getImage?name=emptyPlot.png" alt="Empty Plot">
 
 
                 <button onclick="viewPlot('plot-3')">View Plot</button>
@@ -372,7 +375,7 @@
 
                 <h3>Plot 4: Empty</h3>
 
-                <img id="plot4Image" src="/getEmptyPlot" alt="Empty Plot">
+                <img id="plot4Image" src="/getImage?name=emptyPlot.png" alt="Empty Plot">
 
 
                 <button onclick="viewPlot('plot-4')">View Plot</button>
@@ -383,7 +386,7 @@
 
                 <h3>Plot 5: Empty</h3>
 
-                <img id="plot5Image" src="/getEmptyPlot" alt="Empty Plot">
+                <img id="plot5Image" src="/getImage?name=emptyPlot.png" alt="Empty Plot">
 
 
                 <button onclick="viewPlot('plot-5')">View Plot</button>
@@ -394,7 +397,7 @@
 
                 <h3>Plot 6: Empty</h3>
 
-                <img id="plot6Image" src="/getEmptyPlot" alt="Empty Plot">
+                <img id="plot6Image" src="/getImage?name=emptyPlot.png" alt="Empty Plot">
 
 
                 <button onclick="viewPlot('plot-6')">View Plot</button>
@@ -405,7 +408,7 @@
 
                 <h3>Plot 7: Empty</h3>
 
-                <img id="plot7Image" src="/getEmptyPlot" alt="Empty Plot">
+                <img id="plot7Image" src="/getImage?name=emptyPlot.png" alt="Empty Plot">
 
 
                 <button onclick="viewPlot('plot-7')">View Plot</button>
@@ -416,7 +419,7 @@
 
                 <h3>Plot 8: Empty</h3>
 
-                <img id="plot8Image" src="/getEmptyPlot" alt="Empty Plot">
+                <img id="plot8Image" src="/getImage?name=emptyPlot.png" alt="Empty Plot">
 
 
                 <button onclick="viewPlot('plot-8')">View Plot</button>

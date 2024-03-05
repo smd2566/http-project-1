@@ -140,7 +140,7 @@ body{
 
     
 
-    background-image: url('/getSky');
+    background-image: url('/getImage?name=skyImage.jpg');
     background-repeat: no-repeat;
     background-size: 300%;
 }

@@ -13,10 +13,8 @@
         const handleResponse = async (response, methodType) => {
             if (methodType) {
                 const obj = await response.json();
-                const objStringified = JSON.stringify(obj);
-                const jsonInformation = JSON.parse(objStringified);
 
-                if (obj.rides) {
+                if (obj) {
 
                     setPlot(obj);
 
@@ -29,10 +27,13 @@
 
         const sendGet = async () => {
 
-            const response = await fetch({
-                method: '/getPlotData',
+            const params = window.location.href.split("?")[1];
+            const plotNum = params.split("=")[1];
+
+
+            const response = await fetch(`/getPlotData?plotNumber=${plotNum}`, {
+                method: 'GET',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
                     'Accept': 'application/json',
                 },
             });
@@ -43,34 +44,35 @@
 
         const setPlot = async (obj) => {
 
-            
+            console.log(obj);
             
                 let displayPlot = document.querySelector("#displayPlot");
                 let rideArray = obj.location.split('-');
+                
                 let imageCommandString = "";
 
                 switch (obj.rideType) {
                     case "rollerCoaster":
-                        imageCommandString = "/getRollerCoaster";
+                        imageCommandString = "/getImage?name=rollerCoaster.png";
                         break;
                     case "carousel":
-                        imageCommandString = "/getCarousel";
+                        imageCommandString = "/getImage?name=carousel.png";
                         break;
                     case "ferrisWheel":
-                        imageCommandString = "/getFerrisWheel";
+                        imageCommandString = "/getImage?name=ferrisWheel.png";
                         return;
                     case "bumperCars":
-                        imageCommandString = "/getBumperCars";
+                        imageCommandString = "/getImage?name=bumperCars.png";
                         break;
                     case "slide":
-                        imageCommandString = "/getSlide";
+                        imageCommandString = "/getImage?name=slide.png";
                         break;
                     default:
-                        imageCommandString = "/getEmptyPlot";
+                        imageCommandString = "/getImage?name=emptyPlot.png";
                         break;
                 }
 
-                displayPlot.querySelector("h3").innerHTML = `Plot ${rideArray[1]} : ${ride.name}`;
+                displayPlot.querySelector("h3").innerHTML = `Plot ${rideArray[1]} : ${obj.name}`;
                 displayPlot.querySelector("div").innerHTML = `<img src=${imageCommandString} alt="Empty Plot">`
 
             
